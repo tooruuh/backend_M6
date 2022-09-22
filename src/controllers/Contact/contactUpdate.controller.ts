@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors/appError";
 import { IContact } from "../../interfaces/Contact";
 import { IUserUpdate } from "../../interfaces/User";
-import contatactUpdateSelfService from "../../services/Contact/contactUpdateSelf.service";
+import contatactUpdateService from "../../services/Contact/contactUpdate.service";
 
-const contactSelfUpdateController = async (req: Request, res: Response) => {
+const contactUpdateController = async (req: Request, res: Response) => {
   try {
     const { id, id_contact } = req.params;
 
     const { name, email, contact }: IContact = req.body;
 
-    const response = await contatactUpdateSelfService({
+    const response = await contatactUpdateService({
       id,
       name,
       email,
@@ -26,4 +26,4 @@ const contactSelfUpdateController = async (req: Request, res: Response) => {
   }
 };
 
-export default contactSelfUpdateController;
+export default contactUpdateController;

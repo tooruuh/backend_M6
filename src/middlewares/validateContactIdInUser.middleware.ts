@@ -16,11 +16,6 @@ const validateContactIdInUserMiddleware = async (
 
   const contactsId = contacts.find((contact) => console.log(contact.id));
 
-  // if (!contactUserOk) {
-  //   return res.status(401).json({
-  //     message: "you cannot update/delete a contact other than you",
-  //   });
-  // }
   next();
 };
 

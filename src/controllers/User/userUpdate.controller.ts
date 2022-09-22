@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/User";
-import userUpdateService from "../../services/User/userUpdateSelf.service";
+import userUpdateService from "../../services/User/userUpdate.service";
 
 const userUpdateController = async (req: Request, res: Response) => {
   try {

@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors/appError";
-import contactListUserService from "../../services/Contact/contactListUser.service";
+import contactListService from "../../services/Contact/contactList.service";
 
-const contactListUserController = async (req: Request, res: Response) => {
+const contactListController = async (req: Request, res: Response) => {
   try {
     const email = req.userEmail;
 
-    const user = await contactListUserService(email);
+    const user = await contactListService(email);
 
     return res.status(200).send(user);
   } catch (err) {
@@ -16,4 +16,4 @@ const contactListUserController = async (req: Request, res: Response) => {
   }
 };
 
-export default contactListUserController;
+export default contactListController;

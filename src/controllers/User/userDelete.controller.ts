@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors/appError";
-import userDeleteSelfService from "../../services/User/userDeleteSelf.service";
+import userDeleteService from "../../services/User/userDelete.service";
 
-const userDeleteSelfController = async (req: Request, res: Response) => {
+const userDeleteController = async (req: Request, res: Response) => {
   try {
     const email = req.userEmail;
 
-    const user = await userDeleteSelfService(email);
+    const user = await userDeleteService(email);
 
     return res.status(200).json({ message: "User deleted with sucess!" });
   } catch (err) {
@@ -16,4 +16,4 @@ const userDeleteSelfController = async (req: Request, res: Response) => {
   }
 };
 
-export default userDeleteSelfController;
+export default userDeleteController;

@@ -1,21 +1,12 @@
 import { AppDataSource } from "../../data-source";
-import bcrypt from "bcrypt";
-import { IUserUpdate } from "../../interfaces/User";
-import { AppError } from "../../errors/appError";
-import { IContactUpdate } from "../../interfaces/Contact";
 import { Contact } from "../../entities/contact.entity";
 import { User } from "../../entities/user.entity";
+import { AppError } from "../../errors/appError";
 
-const contatactUpdateSelfService = async ({
-  id,
-  name,
-  email,
-  contact,
-  id_contact,
-}: IContactUpdate) => {
+const contactDeleteService = async (id: string, id_contact: string) => {
   const contactRepository = AppDataSource.getRepository(Contact);
   const contactsList = await contactRepository.find();
-  const contactId = contactsList.find((contact) => contact.id === id_contact);
+  const contact = contactsList.find((contact) => contact.id === id_contact);
 
   const userRepository = AppDataSource.getRepository(User);
   const userList = await userRepository.find();
@@ -34,17 +25,9 @@ const contatactUpdateSelfService = async ({
     );
   }
 
-  const contactUpdate = {
-    name: name || contactId?.name,
-    email: email || contactId?.email,
-    contact: contact || contactId?.contact,
-  };
+  await contactRepository.delete(contact!.id);
 
-  await contactRepository.update(contactId!.id, {
-    ...contactUpdate,
-  });
-
-  return { ...contactUpdate };
+  return true;
 };
 
-export default contatactUpdateSelfService;
+export default contactDeleteService;

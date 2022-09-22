@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 
-const contactListUserService = async (email: string) => {
+const contactListService = async (email: string) => {
   const userRepository = AppDataSource.getRepository(User);
 
   const users = await userRepository.find();
@@ -11,4 +11,4 @@ const contactListUserService = async (email: string) => {
   return account?.contacts;
 };
 
-export default contactListUserService;
+export default contactListService;
