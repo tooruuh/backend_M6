@@ -18,6 +18,7 @@ import contactCreateController from "./controllers/Contact/contactCreate.control
 import contactListController from "./controllers/Contact/contactListUser.controller";
 import contactUpdateController from "./controllers/Contact/contactUpdate.controller";
 import contactDeleteController from "./controllers/Contact/contactDelete.controller";
+import validateOwnerContactMiddleware from "./middlewares/validateOwnerContact.middleware";
 
 //USER
 routes.post("/users", validateUserCreateMiddleware, userCreateController);
@@ -48,6 +49,7 @@ routes.get("/users/contacts", authUser, contactListController);
 routes.delete(
   "/users/contacts/:id/:id_contact",
   authUser,
+  validateOwnerContactMiddleware,
   validateUserIdMiddleware,
   contactDeleteController
 );
@@ -55,6 +57,7 @@ routes.patch(
   "/users/contacts/:id/:id_contact",
   authUser,
   validateUserIdMiddleware,
+  validateOwnerContactMiddleware,
   contactUpdateController
 );
 

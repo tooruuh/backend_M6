@@ -15,32 +15,15 @@ const contatactUpdateService = async ({
 }: IContactUpdate) => {
   const contactRepository = AppDataSource.getRepository(Contact);
   const contactsList = await contactRepository.find();
-  const contactId = contactsList.find((contact) => contact.id === id_contact);
-
-  const userRepository = AppDataSource.getRepository(User);
-  const userList = await userRepository.find();
-  const user = userList.find((user) => user.id === id);
-
-  const userContactsId = user?.contacts.map(
-    (contactId) => contactId.id === id_contact
-  );
-
-  const verifyContact = userContactsId?.includes(true);
-
-  if (!verifyContact) {
-    throw new AppError(
-      401,
-      "you cannot update/delete a contact other than you"
-    );
-  }
+  const contactData = contactsList.find((contact) => contact.id === id_contact);
 
   const contactUpdate = {
-    name: name || contactId?.name,
-    email: email || contactId?.email,
-    contact: contact || contactId?.contact,
+    name: name || contactData?.name,
+    email: email || contactData?.email,
+    contact: contact || contactData?.contact,
   };
 
-  await contactRepository.update(contactId!.id, {
+  await contactRepository.update(contactData!.id, {
     ...contactUpdate,
   });
 
